@@ -1,17 +1,10 @@
-# Git / CI
 .git
-.gitignore
 .github
+.gitignore
 
-# Dependencies (rebuilt inside image)
 vendor
-composer.lock
 
-# Tests (not needed in runtime image)
-tests
-phpunit.xml
-
-# Runtime data — MUST be excluded (DB is created at runtime)
+# Exclude runtime data (database created at container start)
 src/data
 *.db
 *.db-journal
@@ -22,7 +15,7 @@ src/data
 .phpunit.cache
 .phpunit.result.cache
 
-# Logs & OS noise
+# Logs / OS noise
 *.log
 .DS_Store
 Thumbs.db
