@@ -44,11 +44,11 @@ jobs:
           $deployDir = "C:\RajWork\2026\ESLearning\github\htp-deployment\demo-php-github"
 
           if (-not (Test-Path $deployDir)) {
-              throw "❌ Deployment directory not found: $deployDir. Clone the repo there first: git clone <repo-url> `"$deployDir`""
+              throw "Deployment directory not found: $deployDir. Clone the repo there first."
           }
 
           if (-not (Test-Path (Join-Path $deployDir ".git"))) {
-              throw "❌ $deployDir is not a Git repository. Clone it first: git clone <repo-url> `"$deployDir`""
+              throw "$deployDir is not a Git repository. Clone it first."
           }
 
           Set-Location $deployDir
@@ -56,7 +56,7 @@ jobs:
           Write-Host "Fetching from origin..."
           git fetch --all --prune
 
-          $branch = "${{ github.ref_name }}"
+          $branch = "main"
           Write-Host "Checking out branch: $branch"
           git checkout $branch
 
@@ -64,7 +64,7 @@ jobs:
           git pull --ff-only origin $branch
 
           Write-Host ""
-          Write-Host "📦 Deployed commit:"
+          Write-Host "Deployed commit:"
           git log -1 --oneline
 
       - name: Install Composer Dependencies (Deployment)
@@ -77,17 +77,17 @@ jobs:
         run: |
           $deployDir = "C:\RajWork\2026\ESLearning\github\htp-deployment\demo-php-github\src"
           if (-not (Test-Path (Join-Path $deployDir "index.php"))) {
-              throw "❌ index.php missing in deployed src folder"
+              throw "index.php missing in deployed src folder"
           }
           if (-not (Test-Path (Join-Path $deployDir "db.php"))) {
-              throw "❌ db.php missing in deployed src folder"
+              throw "db.php missing in deployed src folder"
           }
-          Write-Host "✅ Deployment smoke test passed — core files present"
+          Write-Host "Deployment smoke test passed - core files present"
 
       - name: Deployment Summary
         shell: powershell
         run: |
-          Write-Host "🎉 Deployment complete"
+          Write-Host "Deployment complete"
           Write-Host "Commit: ${{ github.sha }}"
           Write-Host "Deployed to: C:\RajWork\2026\ESLearning\github\htp-deployment\demo-php-github"
           Write-Host ""
