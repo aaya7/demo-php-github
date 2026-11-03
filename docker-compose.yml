@@ -1,0 +1,16 @@
+services:
+  php-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php-sqlite-app
+    ports:
+      - "8118:80"
+    volumes:
+      - sqlite_data:/var/www/html/data
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:

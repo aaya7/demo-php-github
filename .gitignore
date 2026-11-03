@@ -1,0 +1,27 @@
+# SQLite database (runtime data — never commit)
+src/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Composer
+/vendor/
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Env
+.env
+.env.local
