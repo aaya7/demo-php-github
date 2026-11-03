@@ -1,8 +1,17 @@
 <?php
+
 function getDB(): PDO
 {
-    $dbPath = __DIR__ . '/data/products.db';
-    $isNew = !file_exists($dbPath);
+    $dataDir = __DIR__ . '/data';
+
+    if (!is_dir($dataDir)) {
+        if (!@mkdir($dataDir, 0777, true) && !is_dir($dataDir)) {
+            throw new RuntimeException("Cannot create data directory: {$dataDir}");
+        }
+    }
+
+    $dbPath = $dataDir . '/products.db';
+    $isNew  = !file_exists($dbPath);
 
     $pdo = new PDO('sqlite:' . $dbPath);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,18 +39,20 @@ function initDB(PDO $pdo): void
 
     $count = (int)$pdo->query("SELECT COUNT(*) FROM products")->fetchColumn();
     if ($count === 0) {
-        $stmt = $pdo->prepare("INSERT INTO products (name, description, price, quantity) VALUES (?, ?, ?, ?)");
+        $stmt = $pdo->prepare(
+            "INSERT INTO products (name, description, price, quantity) VALUES (?, ?, ?, ?)"
+        );
         $samples = [
-            ['Laptop Pro 15"',      'High-performance laptop',  1499.99, 10],
-            ['Wireless Mouse',      'Ergonomic wireless mouse',  29.99,  50],
-            ['Mechanical Keyboard', 'RGB mechanical keyboard',   89.99,  30],
-            ['4K Monitor',          '27-inch 4K UHD monitor',   399.00,  15],
-            ['USB-C Hub',           'Multi-port USB-C hub',      49.99,  40],
-            ['Noise-Cancel Headphones','Over-ear ANC headphones',199.99,  20],
-            ['Webcam HD',           '1080p HD webcam',           59.99,  25],
-            ['External SSD 1TB',    'Portable 1TB SSD',         129.99,  18],
-            ['Bluetooth Speaker',   'Waterproof BT speaker',     79.99,  22],
-            ['Laptop Stand',        'Aluminum laptop stand',     34.99,  35],
+            ['Laptop Pro 15"',         'High-performance laptop',   1499.99, 10],
+            ['Wireless Mouse',         'Ergonomic wireless mouse',    29.99,  50],
+            ['Mechanical Keyboard',    'RGB mechanical keyboard',     89.99,  30],
+            ['4K Monitor',             '27-inch 4K UHD monitor',     399.00,  15],
+            ['USB-C Hub',              'Multi-port USB-C hub',        49.99,  40],
+            ['Noise-Cancel Headphones','Over-ear ANC headphones',    199.99,  20],
+            ['Webcam HD',              '1080p HD webcam',             59.99,  25],
+            ['External SSD 1TB',       'Portable 1TB SSD',           129.99,  18],
+            ['Bluetooth Speaker',      'Waterproof BT speaker',       79.99,  22],
+            ['Laptop Stand',           'Aluminum laptop stand',       34.99,  35],
         ];
         foreach ($samples as $p) {
             $stmt->execute($p);
