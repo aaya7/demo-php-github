@@ -52,7 +52,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HeiTech Padu Berhad Product Management System</title>
+    <title>Product Manager - CRUD Apps</title>
     <style>
         * { box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -85,7 +85,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
 </head>
 <body>
 <div class="container">
-    <h1>📦 HeiTech Padu Berhad Product Management System</h1>
+    <h1>📦 Product Manager - CRUD Apps</h1>
 
     <?php if ($message): ?>
         <div class="message"><?= htmlspecialchars($message) ?></div>
