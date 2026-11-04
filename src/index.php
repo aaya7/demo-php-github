@@ -85,7 +85,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
 </head>
 <body>
 <div class="container">
-    <h1>📦 Product Manager - CRUD Apps</h1>
+    <h1>📦 Product Manager - HeiTech Padu Berhad</h1>
 
     <?php if ($message): ?>
         <div class="message"><?= htmlspecialchars($message) ?></div>
@@ -100,7 +100,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
             <?php endif; ?>
             <div class="grid">
                 <div>
-                    <label>Name</label>
+                    <label>Product Name</label>
                     <input type="text" name="name" required
                            value="<?= htmlspecialchars($editProduct['name'] ?? '') ?>">
                 </div>
